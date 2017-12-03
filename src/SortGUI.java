@@ -38,9 +38,7 @@ public class SortGUI {
 		
 		drawCurrentState(array, image);
 		applySort();
-		frame.pack();
-			
-		
+		frame.pack();	
 	}
 	
 	private void drawCurrentState(int[] array, BufferedImage image) {
@@ -52,7 +50,7 @@ public class SortGUI {
 		int verticalScale = image.getHeight()/arrayMax;	
 		int horizontalScale = image.getWidth()/array.length;
 		
-		
+		//draw state
 		for (int i = 0; i < array.length; i++) {
 			int x_start = horizontalScale * i;
 			int x_end = x_start + horizontalScale - 1;
