@@ -12,13 +12,13 @@ import javax.swing.JPanel;
 
 public class SortGUI {
 
-	public static void main (String args[]) {
+	public static void main (String args[]) throws InterruptedException {
 		
 		JFrame frame = new JFrame("Visual Sort");
 		frame.setVisible(true);
 		frame.setDefaultCloseOperation(frame.EXIT_ON_CLOSE);
 		
-		BufferedImage image = new BufferedImage(1000, 1000, BufferedImage.TYPE_INT_RGB);
+		BufferedImage image = new BufferedImage(500, 500, BufferedImage.TYPE_INT_RGB);
 		for (int width = 0; width < image.getWidth(); width++) {
 			for (int height = 0;  height < image.getHeight(); height++) {	
 				image.setRGB(width, height, new Color(0, 0, 0).getRGB());
@@ -29,26 +29,32 @@ public class SortGUI {
 		frame.add(label);
 		frame.pack();
 		SortGUI sorter = new SortGUI();
-		sorter.paint(new BubbleSort(), sorter.shuffleList(1, 500), frame, label, image);
 		
-	}
-	
-	//Image icon inside buffered image inside JPanel inside JFrame
-	private void paint(Sort sort, int[] array, JFrame frame, JLabel label, BufferedImage image) {
-		
-		drawCurrentState(array, image);
-		applySort();
-		frame.pack();	
-	}
-	
-	private void drawCurrentState(int[] array, BufferedImage image) {
-		int arrayMax = 0;
+		//int[] array = {10, 9, 8, 7, 6, 5, 4, 3, 2, 1};
+		int[] array = sorter.shuffleList(1, 100);
 		for (int i = 0; i < array.length; i++) {
-			if (array[i] > arrayMax) arrayMax = array[i];
+			System.out.println(array[i] + " ");
 		}
+		sorter.updateImage(array, image, frame);
+		
+		BubbleSort bubbleSort = new BubbleSort();
+		bubbleSort.sort(array, image, frame); 
+		
+	}
+	
+	
+	public void updateImage(int[] array, BufferedImage image, JFrame frame) throws InterruptedException {
+		int arrayMax = array.length;
 		
 		int verticalScale = image.getHeight()/arrayMax;	
 		int horizontalScale = image.getWidth()/array.length;
+		
+		//clear canvas
+		for (int width = 0; width < image.getWidth(); width++) {
+			for (int height = 0;  height < image.getHeight(); height++) {	
+				image.setRGB(width, height, new Color(0, 0, 0).getRGB());
+			}
+		}
 		
 		//draw state
 		for (int i = 0; i < array.length; i++) {
@@ -65,10 +71,13 @@ public class SortGUI {
 			}
 			
 		}
-		
-	}
 
-	private void applySort() {
+		frame.invalidate();
+		frame.validate();
+		frame.repaint();
+		frame.pack();
+		
+		//Thread.sleep(10);
 		
 	}
 	
