@@ -3,16 +3,14 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.Collections;
 
+import javax.print.attribute.standard.PrinterLocation;
 import javax.swing.JFrame;
 
-public class BubbleSort extends Sort {
+public class BubbleSort {
 
 	public static void main(String[] args) {
 		BubbleSort bubbleSort = new BubbleSort();
 		int[] a = bubbleSort.shuffleList(1, 5);
-		for (int i = 0; i < a.length; i++) {
-			System.out.print(a[i]);
-		}
 		bubbleSort.sort(a);
 	}
 
@@ -42,17 +40,16 @@ public class BubbleSort extends Sort {
 		// end time
 		double endTime = System.nanoTime();
 
-		for (int i = 0; i < a.length; i++) {
-			System.out.print(a[i]);
-		}
+		// for (int i = 0; i < a.length; i++) {
+		// System.out.print(a[i]);
+		// }
 		System.out.println();
 		// Runtime result
 		System.out.println(
 				"-----------------------------------" + "\n" + "Runtime: " + (endTime - startTime) / 1000000 + "ms");
 	}
-	
-	public void sort(int[] a, BufferedImage image, JFrame frame) throws InterruptedException {
 
+	public void sort(int[] a, BufferedImage image, JFrame frame) throws InterruptedException {
 
 		// bubble sort
 
@@ -66,11 +63,11 @@ public class BubbleSort extends Sort {
 					int temp = a[j + 1];
 					a[j + 1] = a[j];
 					a[j] = temp;
-					
+
 					new SortGUI().updateImage(a, image, frame);
 				}
 			}
-		}		
+		}
 	}
 
 	// returns a shuffled array given a start and an end

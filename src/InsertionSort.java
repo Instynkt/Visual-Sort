@@ -1,12 +1,13 @@
 
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.Collections;
 
 import javax.security.auth.kerberos.KerberosKey;
+import javax.swing.JFrame;
 import javax.xml.transform.Templates;
 
-
-public class InsertionSort extends Sort {
+public class InsertionSort {
 
 	public static void main(String[] args) {
 		InsertionSort insertionSort = new InsertionSort();
@@ -15,25 +16,23 @@ public class InsertionSort extends Sort {
 		insertionSort.sort(a);
 	}
 
-	// Bubble sort - iterate through an array of numbers and return an ordered
-	// array from smallest to largest
 	public void sort(int[] a) {
 
 		// start time
 		double startTime = System.nanoTime();
-		
+
 		for (int i = 0; i < a.length; i++) {
 			int j = i - 1;
-			while(j >= 0 && a[i] < a[j]) {
-				
+			while (j >= 0 && a[i] < a[j]) {
+
 				int temp = a[j];
 				a[j] = a[i];
 				a[i] = temp;
 				i--;
-				j--;				
-				}	
+				j--;
 			}
-		
+		}
+
 		// end time
 		double endTime = System.nanoTime();
 		for (int i = 0; i < a.length; i++) {
@@ -42,6 +41,21 @@ public class InsertionSort extends Sort {
 		// Runtime result
 		System.out.println(
 				"-----------------------------------" + "\n" + "Runtime: " + (endTime - startTime) / 1000000 + "ms");
+	}
+
+	public void sort(int[] a, BufferedImage image, JFrame frame) throws InterruptedException {
+
+		for (int i = 0; i < a.length; i++) {
+			int j = i - 1;
+			int temp = a[i];
+			while (j >= 0 && temp < a[j]) {
+				a[j + 1] = a[j];
+				j = j - 1;
+				new SortGUI().updateImage(a, image, frame);
+			}
+			a[j + 1] = temp;
+			new SortGUI().updateImage(a, image, frame);
+		}
 	}
 
 	// returns a shuffled array given a start and an end
